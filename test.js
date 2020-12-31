@@ -1,11 +1,7 @@
 const DataStore= require("./datastore");
 
-const datastore = new DataStore();
+const datastore = new DataStore("./customStore");
 
-const data = {
-    "020":"Nishita",
-    "012":"Apoorva"
-}
-
-//console.table(datastore.writeData(data));
-console.table(datastore.readData("020"));
+ datastore.add("031","Nishkarsh",01);
+// datastore.read("031");
+datastore.delete("031");

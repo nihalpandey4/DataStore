@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nihalpandey4/DataStore/issues"
   },
-  "homepage": "https://github.com/nihalpandey4/DataStore#readme"
+  "homepage": "https://github.com/nihalpandey4/DataStore#readme",
+  "dependencies": {
+    "node-localstorage": "^2.1.6"
+  }
 }
