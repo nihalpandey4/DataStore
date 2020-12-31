@@ -5,7 +5,6 @@ const DEFAULT_FILEPATH = "./Store";
 const MAX_KEY_LENGTH = 32;
 const MAX_FILE_SIZE = 1024; // In MB
 
-
 class DataStore {
   constructor(location) {
     this.location = location || DEFAULT_FILEPATH;
@@ -20,9 +19,8 @@ class DataStore {
     */
   add = (key, value) => {
     try {
-
       if (this.isMaxFileSizeExceeded()) {
-        throw new Error(`Maximum file size exceeded: ${MAX_FILE_SIZE}`);
+        throw new Error(`Maximum file size exceeded: ${MAX_FILE_SIZE} MB`);
       }
 
       if (key.length > MAX_KEY_LENGTH) {
@@ -31,6 +29,10 @@ class DataStore {
 
       if (this.localstorage.getItem(key)) {
         throw new Error("Key already exists.");
+      }
+
+      if (this.getSizeOfObject(value) > MAX_OBJECT_SIZE) {
+        throw new Error(`Value can be max ${MAX_OBJECT_SIZE} KB`);
       }
 
       const jsonObject = JSON.stringify({
@@ -45,8 +47,13 @@ class DataStore {
   };
 
   //Function to keep file size under limit
-  isMaxFileSizeExceeded=()=> (fs.statSync(this.location).size / (1024 * 1024))>MAX_FILE_SIZE;
+  isMaxFileSizeExceeded = () =>
+    fs.statSync(this.location).size / (1024 * 1024) > MAX_FILE_SIZE;
 
+  //Returns the size of object in KB
+  getSizeOfObject = (object) =>
+    Buffer.byteLength(JSON.stringify(object)) / 1000;
+    
 }
 
 module.exports = DataStore;
