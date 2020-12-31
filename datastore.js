@@ -86,9 +86,7 @@ class DataStore {
   //delete key value pair
   delete(key) {
     try {
-      const localstorage = this.localstorage;
-
-      const stringValue = localstorage.getItem(key);
+      const stringValue = this.localstorage.getItem(key);
 
       if (!stringValue) {
         throw new Error("Key not found!");
@@ -101,7 +99,7 @@ class DataStore {
 
       this.checkTimeToLive(timeToLiveDate,key);
 
-      localstorage.removeItem(key);
+      this.localstorage.removeItem(key);
       console.log(`Deleted key: ${key}, value: ${JSON.stringify(value)}`);
     } catch (error) {
       console.log(error.message);
