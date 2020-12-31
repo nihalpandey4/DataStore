@@ -63,6 +63,34 @@ class DataStore {
   //Returns the size of object in KB
   getSizeOfObject = (object) =>
     Buffer.byteLength(JSON.stringify(object)) / 1000;
+
+  //reading value when key is passed as argument
+  read(key) {
+    try {
+      const stringValue = this.localstorage.getItem(key);
+
+      if (!stringValue) {
+        throw new Error("Key not found!");
+      }
+
+      // To convert string to json object
+      let { value, timeToLiveDate } = JSON.parse(stringValue);
+      if (timeToLiveDate) {
+        const currentDate = new Date();
+        timeToLiveDate = new Date(timeToLiveDate); // To convert date string to date object
+
+        if (timeToLiveDate < currentDate) {
+          throw new Error("Key value pair is expired!");
+        }
+      }
+
+      console.log("Value: " + JSON.stringify(value));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
 }
 
 module.exports = DataStore;
