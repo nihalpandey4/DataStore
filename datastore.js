@@ -5,6 +5,7 @@ const DEFAULT_FILEPATH = "./Store";
 const MAX_KEY_LENGTH = 32;
 const MAX_OBJECT_SIZE = 16; //In KB
 const MAX_FILE_SIZE = 1024; // In MB
+const DEFAULT_EXPIRY_TIME = 10 *60; //if no expiry time given
 
 class DataStore {
   constructor(location) {
@@ -18,7 +19,7 @@ class DataStore {
         @param {obj}: value
         @param {integer}: timeToLive - default null
     */
-  add = (key, value, timeToLive = null) => {
+  add = (key, value, timeToLive = DEFAULT_EXPIRY_TIME) => {
     try {
       if (this.isMaxFileSizeExceeded()) {
         throw new Error(`Maximum file size exceeded: ${MAX_FILE_SIZE} MB`);
@@ -90,6 +91,42 @@ class DataStore {
     }
   }
 
+
+  //delete key value pair
+   delete(key) {
+    try {
+        const localstorage = this.localstorage;
+
+        const stringValue = localstorage.getItem(key);
+
+        if (!stringValue) {
+            throw new Error("Key not found!");
+        };
+
+         // To convert string to json object
+        const jsonValue = JSON.parse(stringValue);
+
+        let {
+            value,
+            timeToLiveDate
+        } = jsonValue;
+
+        if (timeToLiveDate) {
+            const currentDate = new Date();
+            timeToLiveDate = new Date(timeToLiveDate); // To convert date string to date object
+
+            if (timeToLiveDate < currentDate) {
+                throw new Error("Key value pair is expired!");
+            };
+        };
+
+        localstorage.removeItem(key);
+        console.log(`Deleted key: ${key}, value: ${JSON.stringify(value)}`);
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 }
 
