@@ -51,9 +51,11 @@ class DataStore {
 
       this.localstorage.setItem(key, jsonObject);
 
-      console.log("Key-Value pair added.");
+      console.log(`"${key}":"${value}" pair added.`);
+      return true;
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
+      return false;
     }
   };
 
@@ -77,9 +79,10 @@ class DataStore {
       // To convert string to json object
       let { value, timeToLiveDate } = JSON.parse(stringValue);
       this.checkTimeToLive(timeToLiveDate,key);
-      console.log("Value: " + JSON.stringify(value));
+      return JSON.stringify(value);
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
+      return null;
     }
   }
 
@@ -93,16 +96,16 @@ class DataStore {
       }
 
       // To convert string to json object
-      const jsonValue = JSON.parse(stringValue);
-
-      let { value, timeToLiveDate } = jsonValue;
+      let { value, timeToLiveDate } = JSON.parse(stringValue);
 
       this.checkTimeToLive(timeToLiveDate,key);
 
       this.localstorage.removeItem(key);
       console.log(`Deleted key: ${key}, value: ${JSON.stringify(value)}`);
+      return true;
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
+      return false;
     }
   }
 
