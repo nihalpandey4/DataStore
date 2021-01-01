@@ -11,6 +11,7 @@
 1. **[Getting Started](#gettingstarted)**<br>
 2. **[File Structure](#filestructure)**<br>
 3. **[Demonstration](#demonstration)**<br>
+4. **[Test case output screenshots](#testcases)**<br>
 
 <hr>
 
@@ -36,7 +37,7 @@ After running this command in command shell a node_modules folder will be create
 ## **File Structure**
 
 1. **datastore.js** - This file contains class DataStore which can be imported and instantiated for using this data store.
-2. **test.js** - This file contains sample code demonstrating how to use CRD operations using DataStore.
+2. **test.js** - This file contains code for testing various paths of execution in datastore.js
 
 <hr>
 
@@ -44,7 +45,7 @@ After running this command in command shell a node_modules folder will be create
 
 ## **Demonstrating of DataStore.js**
 
-Whole implementation of datastore.js is demonstrated in test.js. This is a breif summary of running the file as library.
+This is a brief summary of running the file as library.
 
 ### Examples:
 
@@ -80,5 +81,21 @@ console.log(store.read("Not Key")); //returns null as such key doesnt exist
 console.log(datastore.delete("032")); //returns true if called before time to live property
 console.log(datastore.delete("Not Key")); //Invalid as such key doesnt exist
 ```
+
+<hr>
+
+<a name="testcases"></a>
+
+## Test case screenshots
+
+Test cases can be run by executing this command
+
+```Javascript
+npm test
+```
+
+### Output screen will look like this
+
+![Test cases output](./testCases.png)
 
 <hr>
