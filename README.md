@@ -11,7 +11,6 @@
 1. **[Getting Started](#gettingstarted)**<br>
 2. **[File Structure](#filestructure)**<br>
 3. **[Delete user key](#deleteuserkey)**<br>
-4. **[Commands Available](#commandsavailable)**<br>
 
 <hr>
 
