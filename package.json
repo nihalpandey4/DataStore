@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "prepare": "rm -rf customStore",
-    "start": "node test.js",
-    "test": "concurrently \"npm prepare\" \"npm start\" "
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
