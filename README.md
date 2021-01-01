@@ -10,7 +10,7 @@
 
 1. **[Getting Started](#gettingstarted)**<br>
 2. **[File Structure](#filestructure)**<br>
-3. **[Delete user key](#deleteuserkey)**<br>
+3. **[Demonstration](#demonstration)**<br>
 
 <hr>
 
@@ -39,6 +39,8 @@ After running this command in command shell a node_modules folder will be create
 2. **test.js** - This file contains sample code demonstrating how to use CRD operations using DataStore.
 
 <hr>
+
+<a name = "demonstration"></a>
 
 ## **Demonstrating of DataStore.js**
 
