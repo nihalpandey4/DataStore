@@ -17,6 +17,13 @@ class DataStore {
     this.localstorage = new LocalStorage(this.location);
   }
 
+  /**
+   * Returns path of currrent instance 
+   */
+  getFilePath=()=>{
+    return this.location;
+  }
+
   /** 
    * Adding a JSON object inside local database using DataStore
    * @param {str}: key of object to be added
@@ -55,10 +62,10 @@ class DataStore {
 
       this.localstorage.setItem(key, jsonObject);
 
-      console.log(`"${key}":"${value}" pair added.`);
+      console.log(`"${key}":`,value,` pair added.`)
       return true;
     } catch (error) {
-      console.error(error.message);
+      console.error(`"${key}":"${value}" not added because ${error.message}`);
       return false;
     }
   };
@@ -81,7 +88,7 @@ class DataStore {
       const stringValue = this.localstorage.getItem(key);
 
       if (!stringValue) {
-        throw new Error("Key not found!");
+        throw new Error(`${key} not found!`);
       }
 
       // To convert string to json object
