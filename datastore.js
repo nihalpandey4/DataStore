@@ -5,19 +5,23 @@ const DEFAULT_FILEPATH = "./Store";
 const MAX_KEY_LENGTH = 32;
 const MAX_OBJECT_SIZE = 16; //In KB
 const MAX_FILE_SIZE = 1024; // In MB
-const DEFAULT_EXPIRY_TIME = 10 * 60; //if no expiry time given
+const DEFAULT_EXPIRY_TIME =  60*60*24*365*100; //if no expiry time given
 
 class DataStore {
+  /** 
+   * Creating instance of the DataStore
+   * @param {str}: location - (optional) if not given taken as ./Store
+    */
   constructor(location) {
     this.location = location || DEFAULT_FILEPATH;
     this.localstorage = new LocalStorage(this.location);
   }
 
-  /*
-        To add a key-value pair in local Database
-        @param {str}: key 
-        @param {obj}: value
-        @param {integer}: timeToLive - default null
+  /** 
+   * Adding a JSON object inside local database using DataStore
+   * @param {str}: key of object to be added
+   * @param {obj}: value of object to be added
+   * @param {integer}: timeToLive - seconds after which key value pair expires default = 100 years i.e., persists forever
     */
   add = (key, value, timeToLive = DEFAULT_EXPIRY_TIME) => {
     try {
@@ -67,7 +71,11 @@ class DataStore {
   getSizeOfObject = (object) =>
     Buffer.byteLength(JSON.stringify(object)) / 1000;
 
-  //reading value when key is passed as argument
+
+  /** 
+   * Returns value stored again the given key as JSON object from the local database 
+   * @param {str}: key of object to be read
+    */
   read(key) {
     try {
       const stringValue = this.localstorage.getItem(key);
@@ -86,7 +94,10 @@ class DataStore {
     }
   }
 
-  //delete key value pair
+  /** 
+   * deletes key value pair from the local database 
+   * @param {str}: key of object to be read
+    */
   delete(key) {
     try {
       const stringValue = this.localstorage.getItem(key);
@@ -95,7 +106,6 @@ class DataStore {
         throw new Error("Key not found!");
       }
 
-      // To convert string to json object
       let { value, timeToLiveDate } = JSON.parse(stringValue);
 
       this.checkTimeToLive(timeToLiveDate,key);
